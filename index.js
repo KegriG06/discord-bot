@@ -7,19 +7,10 @@ const client = new Client({
 client.once("ready", async () => {
   console.log(`Bot acildi: ${client.user.tag}`);
 
-  const commands = [
-    {
-      name: "sa",
-      description: "Selam verir"
-    },
-    {
-      name: "hayirdir",
-      description: "Hayırdır gardaş der, foto atar"
-    }
-  ];
-
-  await client.application.commands.set(commands);
-  console.log("Slash komutlar yüklendi");
+  await client.application.commands.set([
+    { name: "sa", description: "Selam verir" },
+    { name: "hayirdir", description: "Hayırdır gardaş der, foto atar" }
+  ]);
 });
 
 client.on("interactionCreate", async interaction => {
@@ -32,7 +23,7 @@ client.on("interactionCreate", async interaction => {
   if (interaction.commandName === "hayirdir") {
     const embed = new EmbedBuilder()
       .setDescription("Hayırdır gardaş 😄")
-      .setImage("https://imgur.com/a/2A9Ofuw");
+      .setImage("https://i.imgur.com/OL7H5f.png"); // DİREKT RESİM
 
     await interaction.reply({ embeds: [embed] });
   }
