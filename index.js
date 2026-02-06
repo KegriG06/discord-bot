@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require("discord.js");
+const { Client, GatewayIntentBits, EmbedBuilder } = require("discord.js");
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds]
@@ -30,10 +30,11 @@ client.on("interactionCreate", async interaction => {
   }
 
   if (interaction.commandName === "hayirdir") {
-    await interaction.reply({
-      content: "Hayırdır gardaş 😄",
-      files: ["https://i.imgur.com/OL7H5f.png"]
-    });
+    const embed = new EmbedBuilder()
+      .setDescription("Hayırdır gardaş 😄")
+      .setImage("https://imgur.com/a/2A9Ofuw");
+
+    await interaction.reply({ embeds: [embed] });
   }
 });
 
