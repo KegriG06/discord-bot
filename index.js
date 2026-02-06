@@ -1,21 +1,39 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
-  ]
+  intents: [GatewayIntentBits.Guilds]
 });
 
-client.once("ready", () => {
-  console.log(`Bot aktif: ${client.user.tag}`);
+client.once("ready", async () => {
+  console.log(`Bot acildi: ${client.user.tag}`);
+
+  const commands = [
+    {
+      name: "sa",
+      description: "Selam verir"
+    },
+    {
+      name: "hayirdir",
+      description: "Hayırdır gardaş der, foto atar"
+    }
+  ];
+
+  await client.application.commands.set(commands);
+  console.log("Slash komutlar yüklendi");
 });
 
-client.on("messageCreate", (message) => {
-  if (message.author.bot) return;
-  if (message.content === "!ping") {
-    message.reply("Pong 🏓");
+client.on("interactionCreate", async interaction => {
+  if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === "sa") {
+    await interaction.reply("Selam! 👋");
+  }
+
+  if (interaction.commandName === "hayirdir") {
+    await interaction.reply({
+      content: "Hayırdır gardaş 😄",
+      files: ["https://i.imgur.com/OL7H5f.png"]
+    });
   }
 });
 
